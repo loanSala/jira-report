@@ -1,2 +1,3 @@
 # jira-report
-This repo is to save python code for jira report project
+This repo is to save python code for jira report project. Try to connect to jira server to get raw data for an agent.
+This agent will analyze the provided raw jira data and create e.g. a daily jira report,...
