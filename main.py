@@ -7,17 +7,45 @@ def handle_message(msg, node_id):
 
     global _connection
 
-    if _connection is None:
-        _connection = Connection()
+    try:
 
-    payload = msg.get("payload", {})
+        if _connection is None:
+            _connection = Connection()
 
-    if payload.get("action") == "get_issue":
+        payload = msg.get("payload", {})
 
-        issue_key = payload.get("issue_key")
+        if payload.get("action") == "get_issue":
 
-        return _connection.get_issue(issue_key)
+            issue_key = payload.get("issue_key")
 
+            issue = _connection.get_issue(issue_key)
+
+            return {
+                "key": issue["key"],
+                "summary": issue["fields"]["summary"],
+                "status": issue["fields"]["status"]["name"],
+                "assignee": (
+                    issue["fields"]["assignee"]["displayName"]
+                    if issue["fields"]["assignee"]
+                    else "Unassigned"
+                ),
+                "priority": (
+                    issue["fields"]["priority"]["name"]
+                    if issue["fields"].get("priority")
+                    else "N/A"
+                )
+            }
+
+        return {
+            "error": "Unknown action"
+        }
+
+    except Exception as e:
+
+        return {
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }
     
     
 if __name__ == "__main__":
