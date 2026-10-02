@@ -3,10 +3,6 @@ import os
 import json
 
 def main(msg):
-    print("Received:")
-    print(json.dumps(msg, indent=2))
-
-    connection = Connection()
 
     return {
         "project": os.getenv("PROJECT_KEY"),
