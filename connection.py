@@ -25,15 +25,18 @@ class Connection:
 
     def test_connection(self):
 
+        url = f"{self.jira_url}/rest/api/2/myself"
+
         response = requests.get(
-        self.jira_url,
-        verify=False,
-        timeout=30
+        url,
+        headers=self.headers,
+        timeout=30,
+        verify=False
         )
 
         return {
         "status_code": response.status_code,
-        "response_text": response.text[:1000]
+        "response_text": response.text[:500]
         }
 
     def get_issue(self, issue_key):
