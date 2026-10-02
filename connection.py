@@ -32,11 +32,11 @@ class Connection:
         response = requests.get(
             url,
             headers=self.headers,
-            #verify=self.ca_bundle,
-            timeout=30,
+            verify=False,
+            timeout=30
         )
 
-        print(f"Status: {response.status_code}")
+        #print(f"Status: {response.status_code}")
 
         if response.ok:
             print("Connection successful")
@@ -55,8 +55,8 @@ class Connection:
         response = requests.get(
             url,
             headers=self.headers,
-            #verify=self.ca_bundle,
-            timeout=30,
+            verify=False,
+            timeout=30
         )
 
         response.raise_for_status()
@@ -77,7 +77,8 @@ class Connection:
             url,
             headers=self.headers,
             params=payload,
-            timeout=30,
+            verify=False,
+            timeout=30
         )
 
         response.raise_for_status()
