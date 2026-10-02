@@ -33,8 +33,7 @@ class Connection:
 
         return {
         "status_code": response.status_code,
-        "url": self.jira_url,
-        "response_text": response.text[:500]
+        "response_text": response.text[:1000]
         }
 
     def get_issue(self, issue_key):
