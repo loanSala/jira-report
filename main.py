@@ -7,21 +7,16 @@ def handle_message(msg, node_id):
 
     global _connection
 
-    try:
+    if _connection is None:
+        _connection = Connection()
 
-        if _connection is None:
-            _connection = Connection()
+    payload = msg.get("payload", {})
 
-        result = _connection.test_connection()
+    if payload.get("action") == "get_issue":
 
-        return result
+        issue_key = payload.get("issue_key")
 
-    except Exception as e:
-
-        return {
-            "error": str(e),
-            "traceback": traceback.format_exc()
-        }
+        return _connection.get_issue(issue_key)
 
     
     
