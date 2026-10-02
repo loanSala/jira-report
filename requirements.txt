@@ -1,0 +1,8 @@
+requests
+pip-system-certs
+pywin32
+schedule
+argparse
+pandas
+python-dotenv
+tabulate
