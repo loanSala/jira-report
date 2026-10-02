@@ -62,7 +62,7 @@ class Connection:
         response.raise_for_status()
         return response.json()
 
-    def search_issues(self, jql, expand=str, start_at=0, max_results=50):
+    def search_issues(self, jql, expand=str):
         """
         Search Jira issues using JQL.
         """
@@ -70,16 +70,13 @@ class Connection:
 
         payload = {
             "jql": jql,
-            "expand": expand,
-            "startAt": start_at,
-            "maxResults": max_results
+            "expand": expand
         }
 
         response = requests.get(
             url,
             headers=self.headers,
             params=payload,
-            #verify=self.ca_bundle,
             timeout=30,
         )
 
