@@ -24,26 +24,20 @@ class Connection:
         }
 
     def test_connection(self):
-        """
-        Calls /myself endpoint to verify authentication.
-        """
+
         url = f"{self.jira_url}/rest/api/2/myself"
 
         response = requests.get(
-            url,
-            headers=self.headers,
-            verify=False,
-            timeout=30
+        url,
+        headers=self.headers,
+        timeout=30,
+        verify=False
         )
 
-        #print(f"Status: {response.status_code}")
-
-        if response.ok:
-            print("Connection successful")
-            print(f"RESPONSE: {response.text}")
-        else:
-            print("Connection failed")    
-
+        return {
+        "status_code": response.status_code,
+        "response_text": response.text[:500]
+        }
 
     def get_issue(self, issue_key):
         """
