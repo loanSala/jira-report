@@ -3,12 +3,24 @@ import os
 import json
 
 def main(msg):
+    days = msg["payload"].get("days", 1)
 
-    return {
-        "project": os.getenv("PROJECT_KEY"),
-        "jira_url_exists": bool(os.getenv("JIRA_URL")),
-        "jira_pat_exists": bool(os.getenv("JIRA_PAT"))
-    }
+    project_key = os.getenv("PROJECT_KEY")
+
+    connection = Connection()
+
+    jql = (
+        f'project = "{project_key}" '
+        f'AND updated >= -{days}d '
+        f'ORDER BY updated DESC'
+    )
+
+    result = connection.search_issues(
+        jql_query=jql,
+        expand="changelog"
+    )
+
+    return {"total": result["total"]}
 
     
 if __name__ == "__main__":
