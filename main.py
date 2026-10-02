@@ -16,7 +16,7 @@ def main(msg):
     )
 
     result = connection.search_issues(
-        jql_query=jql,
+        jql=jql,
         expand="changelog"
     )
 
