@@ -1,6 +1,2 @@
 requests
 schedule
-argparse
-pandas
-python-dotenv
-tabulate

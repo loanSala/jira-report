@@ -1,23 +1,20 @@
 # connection.py
 import os
 import requests
-from dotenv import load_dotenv
+
 
 class Connection:
     def __init__(self):
-        load_dotenv()
-
         self.jira_url = os.getenv("JIRA_URL")
-        self.pat_file = os.getenv("JIRA_PAT_FILE")
-        
+        self.jira_pat = os.getenv("JIRA_PAT")
+
         if not self.jira_url:
-            raise ValueError("JIRA_URL not found in environment")
+            raise ValueError("JIRA_URL missing")
 
-        if not self.pat_file:
-            raise ValueError("JIRA_PAT_FILE not found in environment")
+        if not self.jira_pat:
+            raise ValueError("JIRA_PAT missing")
 
-        with open(self.pat_file, "r", encoding="utf-8") as f:
-            self.jira_pat = f.read().strip()
+       
 
     @property
     def headers(self):
