@@ -12,14 +12,9 @@ def handle_message(msg, node_id):
         if _connection is None:
             _connection = Connection()
 
-        payload = msg.get("payload", {})
+        result = _connection.test_connection()
 
-        days = payload.get("days", 1)
-
-        return {
-            "status": "received",
-            "days": days
-        }
+        return result
 
     except Exception as e:
 
